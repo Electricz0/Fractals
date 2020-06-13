@@ -5,25 +5,25 @@ turtle graphics
 import turtle
 import math
 
-def koch_draw(t,i=0,sl=100):
+def koch_draw(t,d=0,sl=100):
     """
     start drawing a koch snowflake\n
     t - turtle to command\n
-    i - recursion level\n
+    i - recursion depth\n
     sl - initial side length in pixels
     """
     # start algorithym #
-    def koch(t,i=0,sl=100):
+    def koch(t,d=0,sl=100):
         if i == 0:
             t.fd(sl)
         elif i > 0:
-            koch(t,i=i-1,sl=sl/3)
+            koch(t,d=d-1,sl=sl/3)
             t.rt(60)
-            koch(t,i=i-1,sl=sl/3)
+            koch(t,d=d-1,sl=sl/3)
             t.lt(120)
-            koch(t,i=i-1,sl=sl/3)
+            koch(t,d=d-1,sl=sl/3)
             t.rt(60)
-            koch(t,i=i-1,sl=sl/3)
+            koch(t,d=d-1,sl=sl/3)
     # end algorithym #
 
     # positioning #
@@ -37,11 +37,11 @@ def koch_draw(t,i=0,sl=100):
 
     # draw the snowflake #
     t.pd()
-    koch(t,i=i,sl=sl)
+    koch(t,d=d,sl=sl)
     t.lt(120)
-    koch(t,i=i,sl=sl)
+    koch(t,d=d,sl=sl)
     t.lt(120)
-    koch(t,i=i,sl=sl)
+    koch(t,d=d,sl=sl)
     t.lt(120)
     # end draw snowflake #
 
@@ -51,29 +51,46 @@ def koch_draw(t,i=0,sl=100):
     t.fd( sl / math.sqrt(3))
     t.rt(30)
 
-def tree_draw(t,i=0,sl=100,fctr=.8,theta=20):
+def tree_draw(t,d=0,sl=100,fctr=.8,theta=20,b=2):
     """
     will draw a tree fractal
 
     t - turtle to command\n
     i - recursion depth\n
     sl - stem length\n
-    fctr - size of deeper stem related to current stem
-    theta - angle of branches
+    fctr - size of deeper stem related to current stem\n
+    theta - angle between branches\n
+    b - branching factor
     """
-    if i > 0:
+    # total spread of branches
+    bs = theta * (b - 1)
+
+    # if we have not reached the leaves
+    if d > 0:
+        # draw stem
         t.pd()
         t.fd(sl)
-        t.lt(theta)
-        tree_draw(t,i=i-1,sl=sl*fctr,fctr=fctr,theta=theta)
+
+        # turn to first branch
+        t.lt(bs / 2)
+
+        # iterate over branches
+        for i in range(b):
+            # draw branch
+            tree_draw(t,d=d-1,sl=sl*fctr,fctr=fctr,theta=theta,b=b)
+            t.pu()
+
+            # if this is not the last branch
+            # turn to the next one
+            if i < b - 1:
+                t.rt(theta)
+                t.pd()
+
+        # finish drawing branch
         t.pu()
-        t.rt(2 * theta)
-        t.pd()
-        tree_draw(t,i=i-1,sl=sl*fctr,fctr=fctr,theta=theta)
-        t.pu()
-        t.lt(theta)
+        t.lt(bs / 2)
         t.bk(sl)
-    elif i == 0:
+    elif d == 0:
         t.fd(sl)
         t.bk(sl)
 
@@ -129,8 +146,8 @@ def main():
     # koch_draw(t, i=5, sl=sl)
 
     t.seth(90)
-    t.setpos(0,-100)
-    tree_draw(t,i=15)
+    t.setpos(0,-200)
+    tree_draw(t,d=5,fctr=.5,b=4,theta=35)
     # end drawing #
     
 
