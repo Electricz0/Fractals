@@ -13,10 +13,10 @@ def koch_draw(t,d=0,sl=100):
     sl - initial side length in pixels
     """
     # start algorithym #
-    def koch(t,d=0,sl=100):
-        if i == 0:
+    def koch(t,d,sl):
+        if d == 0:
             t.fd(sl)
-        elif i > 0:
+        elif d > 0:
             koch(t,d=d-1,sl=sl/3)
             t.rt(60)
             koch(t,d=d-1,sl=sl/3)
@@ -64,35 +64,43 @@ def tree_draw(t,d=0,sl=100,fctr=.8,theta=20,b=2):
     """
     # total spread of branches
     bs = theta * (b - 1)
+    r = range(b)
 
-    # if we have not reached the leaves
-    if d > 0:
-        # draw stem
-        t.pd()
-        t.fd(sl)
+    # algorithym #
+    def tree(t,d,sl,fctr,theta,b):
+        # if we have not reached the leaves
+        if d > 0:
+            # draw stem
+            t.pd()
+            t.fd(sl)
 
-        # turn to first branch
-        t.lt(bs / 2)
+            # turn to first branch
+            t.lt(bs / 2)
 
-        # iterate over branches
-        for i in range(b):
-            # draw branch
-            tree_draw(t,d=d-1,sl=sl*fctr,fctr=fctr,theta=theta,b=b)
+            # iterate over branches
+            for i in r:
+                # draw branch
+                tree(t,d-1,sl*fctr,fctr,theta,b)
+
+                # if this is not the last branch
+                # turn to the next one
+                if i < b - 1:
+                    t.rt(theta)
+
+            # return to start
             t.pu()
+            t.lt(bs / 2)
+            t.bk(sl)
+        # else, draw leaf
+        elif d == 0:
+            t.pd()
+            t.fd(sl)
+            t.pu()
+            t.bk(sl)
+    # end algorithym #
 
-            # if this is not the last branch
-            # turn to the next one
-            if i < b - 1:
-                t.rt(theta)
-                t.pd()
-
-        # finish drawing branch
-        t.pu()
-        t.lt(bs / 2)
-        t.bk(sl)
-    elif d == 0:
-        t.fd(sl)
-        t.bk(sl)
+    # start algorithym
+    tree(t,d,sl,fctr,theta,b)
 
 
 def main():
@@ -120,8 +128,8 @@ def main():
     t = turtle.RawTurtle(s)
 
     # show the turtle
-    t.showturtle()
-    # t.hideturtle()
+    # t.showturtle()
+    t.hideturtle()
 
     # set turtle speed
     t.speed(0)
@@ -131,23 +139,25 @@ def main():
     # end turtle setup #
 
     # draw here #
+
     # sl=150
     # t.setpos(-200,100)
-    # koch_draw(t, i=0, sl=sl)
+    # koch_draw(t, d=0, sl=sl)
     # t.setpos(0,100)
-    # koch_draw(t, i=1, sl=sl)
+    # koch_draw(t, d=1, sl=sl)
     # t.setpos(200,100)
-    # koch_draw(t, i=2, sl=sl)
+    # koch_draw(t, d=2, sl=sl)
     # t.setpos(-200,-100)
-    # koch_draw(t, i=3, sl=sl)
+    # koch_draw(t, d=3, sl=sl)
     # t.setpos(0,-100)
-    # koch_draw(t, i=4, sl=sl)
+    # koch_draw(t, d=4, sl=sl)
     # t.setpos(200,-100)
-    # koch_draw(t, i=5, sl=sl)
+    # koch_draw(t, d=5, sl=sl)
 
     t.seth(90)
     t.setpos(0,-200)
-    tree_draw(t,d=5,fctr=.5,b=4,theta=35)
+    tree_draw(t,d=10,fctr=.7,b=3,theta=40)
+
     # end drawing #
     
 
