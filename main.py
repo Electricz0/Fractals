@@ -140,33 +140,36 @@ def main():
 
     # draw here #
 
-    sl=150
-    t.setpos(-200,100)
-    koch_draw(t, d=0, sl=sl)
-    t.setpos(0,100)
-    koch_draw(t, d=1, sl=sl)
-    t.setpos(200,100)
-    koch_draw(t, d=2, sl=sl)
-    t.setpos(-200,-100)
-    koch_draw(t, d=3, sl=sl)
-    t.setpos(0,-100)
-    koch_draw(t, d=4, sl=sl)
-    t.setpos(200,-100)
-    koch_draw(t, d=5, sl=sl)
+    # draw some snowflakes
+    # sl=150
+    # t.setpos(-200,100)
+    # koch_draw(t, d=0, sl=sl)
+    # t.setpos(0,100)
+    # koch_draw(t, d=1, sl=sl)
+    # t.setpos(200,100)
+    # koch_draw(t, d=2, sl=sl)
+    # t.setpos(-200,-100)
+    # koch_draw(t, d=3, sl=sl)
+    # t.setpos(0,-100)
+    # koch_draw(t, d=4, sl=sl)
+    # t.setpos(200,-100)
+    # koch_draw(t, d=5, sl=sl)
 
+    # draw a tree
     # t.seth(90)
     # t.setpos(0,-200)
     # tree_draw(t,d=20,fctr=.9,b=2,theta=32)
 
-    # t.seth(90)
-    # theta = 6
-    # ln = 50
-    # fctr = .98
-    # t.pd()
-    # for i in range(300):
-    #     t.fd(ln)
-    #     t.lt(theta)
-    #     ln *= fctr
+    # draw a spiral
+    t.seth(90)
+    theta = 6
+    ln = 0.4
+    fctr = 1.013
+    t.pd()
+    for i in range(300):
+        t.fd(ln)
+        t.lt(theta)
+        ln *= fctr
 
     # end drawing #
     
