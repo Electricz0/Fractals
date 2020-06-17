@@ -108,19 +108,19 @@ def main():
     program start function
     """
     # screen setup #
-    # create screen
+    # create turtle canvas
     s = turtle.Screen()
 
-    # initialize screen
+    # initialize turtle canvas
     s.setup(
-        width=600,
-        height=600,
+        width=700,
+        height=500,
         startx=0,
         starty=0
     )
 
     # set screen title
-    s.title("Fractals")
+    s.title("Turtle Canvas")
     # end screen setup #
 
     # turtle setup #
@@ -140,23 +140,33 @@ def main():
 
     # draw here #
 
-    # sl=150
-    # t.setpos(-200,100)
-    # koch_draw(t, d=0, sl=sl)
-    # t.setpos(0,100)
-    # koch_draw(t, d=1, sl=sl)
-    # t.setpos(200,100)
-    # koch_draw(t, d=2, sl=sl)
-    # t.setpos(-200,-100)
-    # koch_draw(t, d=3, sl=sl)
-    # t.setpos(0,-100)
-    # koch_draw(t, d=4, sl=sl)
-    # t.setpos(200,-100)
-    # koch_draw(t, d=5, sl=sl)
+    sl=150
+    t.setpos(-200,100)
+    koch_draw(t, d=0, sl=sl)
+    t.setpos(0,100)
+    koch_draw(t, d=1, sl=sl)
+    t.setpos(200,100)
+    koch_draw(t, d=2, sl=sl)
+    t.setpos(-200,-100)
+    koch_draw(t, d=3, sl=sl)
+    t.setpos(0,-100)
+    koch_draw(t, d=4, sl=sl)
+    t.setpos(200,-100)
+    koch_draw(t, d=5, sl=sl)
 
-    t.seth(90)
-    t.setpos(0,-200)
-    tree_draw(t,d=10,fctr=.7,b=3,theta=40)
+    # t.seth(90)
+    # t.setpos(0,-200)
+    # tree_draw(t,d=20,fctr=.9,b=2,theta=32)
+
+    # t.seth(90)
+    # theta = 6
+    # ln = 50
+    # fctr = .98
+    # t.pd()
+    # for i in range(300):
+    #     t.fd(ln)
+    #     t.lt(theta)
+    #     ln *= fctr
 
     # end drawing #
     
